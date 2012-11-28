@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int a[100001];
+long long a[100001];
 
 
 double getMedian(int total){
@@ -21,7 +21,7 @@ int main(){
     int number;
 
     char act;
-    int item;
+    long long item;
 
     cin>>number;
     while(number>0){
@@ -48,7 +48,7 @@ int main(){
                 cout<<"Wrong!"<<endl;
             }
             else{
-                int *p = lower_bound(a,a+total, item); 
+                long long *p = lower_bound(a,a+total, item); 
                 if(*p == item){
                     int index = p-a;
                     for(int i=index;i<total-1;i++)
