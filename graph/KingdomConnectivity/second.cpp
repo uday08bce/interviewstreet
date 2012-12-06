@@ -34,8 +34,8 @@ int count(int s, int e){
     int total = 0;
     bool cycle = false;
     for(;it!=adj_list[s].next.end();++it){
-        total += adj_list[(*it)].distance;
-        if(adj_list[(*it)].cycle == true)
+        total = (total + adj_list[(*it)].distance) % 1000000000;
+        if(adj_list[(*it)].cycle == true && adj_list[(*it)].distance != 0)
             cycle = true;
 
     }
@@ -142,6 +142,7 @@ int main(){
         adj_list[x].next.insert(y);
     }
 
+ //   dump();
     // to remove all cycle
     while(!finish){
         dfs(1);
