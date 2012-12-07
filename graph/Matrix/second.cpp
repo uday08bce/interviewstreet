@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iterator>
 #include <set>
+#include <queue>
 
 using namespace std;
 
@@ -30,19 +31,27 @@ vector<node> adj_list;
 bool adj_machine(int pos){
     if(adj_list[pos].isMachine)
         return true;
-    if(adj_list[pos].visited)
-        return false;
-    
-    adj_list[pos].visited = true;
+
+    set<int> s;
+    queue<int> q;
+    q.push(pos);
+    s.insert(pos);
+
     bool found = false;
-    set<int>::iterator it = adj_list[pos].neighbor.begin();
-    for(;it!=adj_list[pos].neighbor.end();++it){
-        if(adj_machine(*it)){
-            found = true;
-            break;
+    while(!q.empty() && !found){
+        int i = q.front();
+        q.pop();
+        set<int>::iterator it = adj_list[i].neighbor.begin();
+        for(;it!=adj_list[i].neighbor.end() && ! found;++it){
+            if( s.find(*it) != s.end())
+                continue;
+            if(adj_list[*it].isMachine){
+                found = true;
+                break;
+            }
+            q.push(*it);
         }
     }
-    adj_list[pos].visited = false;
 
     if(found)
         return true;
